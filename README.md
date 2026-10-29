@@ -1,5 +1,4 @@
-# invoice-manager-python
-RechnungsManager
+# invoice-manager-python / Rechnungs Manager
 
 Eine Python-Desktopanwendung zur Erfassung von Kundendaten und Artikelpositionen. Sie berechnet Warenwert, Liefer- und Aufbaukosten und erstellt daraus einen Rechnungsentwurf als PDF.
 
