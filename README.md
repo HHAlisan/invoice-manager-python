@@ -144,7 +144,13 @@ Als Dateiname wird `Rechnungsentwurf.pdf` vorgeschlagen.
 
 Die Anwendung besitzt derzeit keine dauerhafte Kunden- oder Verkaufsdatenbank. Formulareingaben werden beim Beenden nicht als bearbeitbarer Datensatz gespeichert.
 
-[Screenshot hier einfügen]
+## Screenshots
+
+### Benutzeroberfläche
+![RechnungsManager – Benutzeroberfläche](docs/screenshots/application.png)
+
+### Beispielrechnung
+[Beispiel-PDF ansehen](docs/examples/example_invoice.pdf)
 
 ## Was ich dabei gelernt habe
 
