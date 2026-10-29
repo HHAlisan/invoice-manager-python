@@ -150,7 +150,7 @@ Die Anwendung besitzt derzeit keine dauerhafte Kunden- oder Verkaufsdatenbank. F
 ![RechnungsManager – Benutzeroberfläche](docs/screenshots/application.png)
 
 ### Beispielrechnung
-[Beispiel-PDF ansehen](docs/examples/example_invoice.pdf)
+[Beispiel-PDF ansehen](docs/examples/Rechnungsentwurf.pdf)
 
 ## Was ich dabei gelernt habe
 
