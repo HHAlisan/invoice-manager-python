@@ -1,33 +1,14 @@
-# Zugangsdaten
-.env
-.env.*
-!.env.example
-
-# Virtuelle Python-Umgebungen
 .venv/
 venv/
-
-# Python-Cache
 __pycache__/
 *.py[cod]
-
-# Entwicklungsumgebungen
-.idea/
-.vscode/
-
-# Betriebssystem-Metadaten
-.DS_Store
-__MACOSX/
-._*
-Thumbs.db
-
-# Protokolle und Build-Ergebnisse
-*.log
 build/
 dist/
-*.egg-info/
-
-# Lokale Ausgaben
 output/
-exports/
-logs/
+*.sqlite3
+*.sqlite3-*
+lieferpreise.json
+lieferpreise.json.bak
+firmendaten.json
+.DS_Store
+Thumbs.db

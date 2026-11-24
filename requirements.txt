@@ -1,2 +1,1 @@
-# PDF-Erstellung
-reportlab
+reportlab==4.4.9
