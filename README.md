@@ -1,10 +1,29 @@
 # Quittung
 
-Eine lokale Python-Desktopanwendung zum Erstellen von PDF-Quittungen, Rechnungen und Kostenvoranschlägen mit Reservierungsbestätigung. Sie verwendet Tkinter für die Oberfläche, ReportLab für den PDF-Export und SQLite für die optionale Kundendatenbank.
+Lokale Python-Desktop-App für **Quittungen, Rechnungen und Kostenvoranschläge mit Reservierungsbestätigung**. Artikel erfassen, Beträge automatisch berechnen und den fertigen Beleg als PDF speichern.
 
-## Starten
+![Hauptfenster von Quittung mit Dokumentauswahl, Kundensuche und Einstellungen](docs/screenshots/hauptfenster.webp)
 
-Voraussetzungen sind Python 3.10 oder neuer, Tkinter und eine grafische Desktopumgebung. Unter Debian oder Ubuntu kann Tkinter je nach Installation über das Paket `python3-tk` ergänzt werden.
+## Funktionen
+
+- **Belege erstellen:** Positionen mit Menge und Einzelpreis erfassen. Die App berechnet Warenwert, Zusatzkosten und Gesamtbetrag.
+- **Lieferkosten berechnen:** Wahlweise nach Warenwert, Entfernung oder Volumen. Etagenzuschläge, Fahrstuhlpauschalen und Montagekosten lassen sich berücksichtigen.
+- **Reservierungen verwalten:** Gültigkeitsdatum und Anzahlung erfassen. Der Restbetrag wird automatisch berechnet.
+- **PDFs exportieren:** Eigene Firmendaten und optionale Bemerkungen übernehmen. Eine hinterlegte Bankverbindung erscheint auf Rechnungen.
+- **Kunden wiederverwenden:** Kontaktdaten und Vorgänge bei Bedarf lokal in SQLite speichern. Die Checkbox dafür ist standardmäßig aus.
+
+**Beispiel-PDFs mit fiktiven Daten** · [Quittung](docs/Beispiel-Quittung.pdf) · [Rechnung](docs/Beispiel-Rechnung.pdf) · [Kostenvoranschlag](docs/Beispiel-Kostenvoranschlag.pdf)
+
+<details>
+<summary>Artikelerfassung und Lieferoptionen ansehen</summary>
+
+![Artikelerfassung, Lieferoptionen und Checkbox für Bemerkungen](docs/screenshots/artikel-und-lieferung.webp)
+
+</details>
+
+## Aus dem Quellcode starten
+
+Lade das Repository über **Code → Download ZIP** herunter und entpacke es. Öffne ein Terminal im Ordner, in dem `main.py` liegt. Du brauchst Python 3.10 oder neuer mit Tkinter und eine grafische Desktopumgebung. Auf Debian oder Ubuntu kann je nach Installation das Paket `python3-tk` nötig sein.
 
 **Windows (PowerShell)**
 
@@ -22,24 +41,40 @@ python3 -m venv .venv
 .venv/bin/python main.py
 ```
 
-## Bedienung
+## Einen Beleg erstellen
 
-Über **⚙ Einstellungen** oben rechts erreichst du Firmendaten und Lieferpreise.
+1. Wähle die Dokumentart und trage Kundendaten und Artikel ein.
+2. Wähle Lieferung oder Abholung. Unter **⚙ Einstellungen** kannst du eigene Firmendaten und Lieferpreise hinterlegen. Die Warenwerttabelle enthält fiktive Beispielpreise. Beim ersten Speichern der Lieferpreise legst du ein Passwort fest.
+3. Aktiviere bei Bedarf **Bemerkung hinzufügen** oder **Kundendaten in der Datenbank speichern**.
+4. Prüfe den Vorgang über **Daten prüfen** und speichere anschließend das PDF.
 
-- **Firmendaten** speichert den eigenen Absender für den PDF-Kopf. Die Bankverbindung erscheint nur auf Rechnungen und nur, wenn sie hinterlegt wurde.
-- **Lieferpreise** öffnet die Tarife für Warenwert, Entfernung und Volumen. Die Warenwerttabelle enthält fiktive Beispielpreise. Tarife nach Entfernung und Volumen beginnen bei 0 €. Das Passwort wird beim Speichern benötigt und bei der ersten Speicherung selbst gewählt. Bei Lieferung bis zur Wohnung gilt je nach Eingabe der Etagenzuschlag oder eine Fahrstuhlpauschale. Montagekosten können separat erfasst werden.
-- **Daten prüfen** zeigt die erfassten Beträge vor dem Export. Mit **Bemerkung hinzufügen** blendest du das Textfeld ein und übernimmst bis zu 1.500 Zeichen ins PDF. Bei einer Reservierung berechnet das Programm den Restbetrag aus Gesamtbetrag und Anzahlung.
-- **Kundendaten in der Datenbank speichern** übernimmt den Vorgang erst nach erfolgreichem PDF-Export. Die Checkbox ist für jeden Vorgang standardmäßig aus. Gespeicherte Kunden lassen sich wieder auswählen, einschließlich Status ihrer Einkaufsberechtigung und Datum des letzten eingetragenen Einkaufs.
-- **Neuer Vorgang** setzt die Vorgangsdaten zurück und behält die Kundendaten im Formular. **Neuer Kunde** leert auch die Kundenfelder. Nach einem erfolgreichen Export beginnt automatisch ein neuer Vorgang für denselben Kunden.
+**Neuer Vorgang** leert die Vorgangsdaten und behält den aktuellen Kunden. **Neuer Kunde** leert zusätzlich die Kundenfelder.
 
-Die App legt lokale Dateien für Kundendaten, Firmendaten und Tarife außerhalb des Projektordners an. Unter Windows ist das `%LOCALAPPDATA%\Quittung`, unter macOS `~/Library/Application Support/Quittung` und unter Linux `${XDG_DATA_HOME:-$HOME/.local/share}/quittung`. Der Datenbankpfad kann bei Bedarf über `QUITTUNG_DB_PATH` gesetzt werden. PDF-Dateien werden am im Exportdialog gewählten Ort gespeichert.
+## Lokale Daten
 
-[Quittung](docs/Beispiel-Quittung.pdf) · [Rechnung](docs/Beispiel-Rechnung.pdf) · [Kostenvoranschlag](docs/Beispiel-Kostenvoranschlag.pdf). Alle Beispiele verwenden fiktive Daten.
+| System | Verzeichnis für Kundendaten, Firmendaten und Lieferpreise |
+| --- | --- |
+| Windows | `%LOCALAPPDATA%\Quittung` |
+| macOS | `~/Library/Application Support/Quittung` |
+| Linux | `${XDG_DATA_HOME:-$HOME/.local/share}/quittung` |
 
-## Tests und Windows-Build
+Die App speichert PDFs am im Dialog gewählten Ort. Mit `QUITTUNG_DB_PATH` lässt sich ein anderer Pfad für die Kundendatenbank festlegen.
+
+## Technik, Tests und Windows-Build
+
+**Python**, **Tkinter**, **ReportLab** und **SQLite**. Lieferpreise und Firmendaten werden als JSON gespeichert.
+
+Für die Tests verwende den Python-Interpreter der virtuellen Umgebung.
 
 ```bash
 python -m unittest discover -s tests -v
 ```
 
-Zum Erstellen einer Windows-EXE in Windows PyInstaller in derselben virtuellen Umgebung installieren und `python -m PyInstaller Quittung.spec` ausführen. Die EXE landet unter `dist/Quittung.exe`.
+Unter Windows kannst du mit der vorhandenen PyInstaller-Spezifikation eine EXE erstellen.
+
+```powershell
+.\.venv\Scripts\python.exe -m pip install pyinstaller
+.\.venv\Scripts\python.exe -m PyInstaller Quittung.spec
+```
+
+Die EXE liegt anschließend unter `dist\Quittung.exe`.
